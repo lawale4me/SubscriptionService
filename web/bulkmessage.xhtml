@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">Messages</ui:define>                  
+    
+    <ui:define name="content">    
+        <h:form id="form1" enctype="multipart/form-data">
+            <p:growl id="messages" showDetail="true"/>
+            <p:panel header="Message" style="width: 1000px;"> 
+                <p:panelGrid columns="2">                    
+                    <h:outputLabel for="message" value="Message " />
+                    <p:fileUpload value="#{messageMBean.file}" mode="simple"   />
+                    <h:outputLabel for="product" value="Product " />           
+                    
+                    <h:selectOneMenu id="product_fk" 
+                                     converter="#{productConverter}"
+                                     value="#{messageMBean.product}" 
+                                     title="product_fk" >
+                        <!-- DONE: update below reference to list of available items-->
+                        <f:selectItems value="#{messageMBean.productList}" 
+                                       var="prod" itemValue="#{prod}" 
+                                       itemLabel="#{prod.productName}"/>
+                    </h:selectOneMenu>
+
+
+                    <f:facet name="footer">
+                        <h:commandButton value="Add Message" action="#{messageMBean.addAction2}"/>
+                    </f:facet>
+                </p:panelGrid>
+                <p:spacer height="30px;"/>
+                <p:dataTable value="#{messageMBean.msgs}" var="msg" 
+                             widgetVar="50" style="width: 1000px;" editable="true"
+                             rowKey="#{msg.messageId}" rows="10" paginator="true"  >
+                    <f:facet name="header">  
+                        Messages List  
+                    </f:facet>
+                    <p:ajax event="rowEdit" listener="#{messageMBean.onEdit}" update=":form1:messages" />  
+                    <p:ajax event="rowEditCancel" listener="#{messageMBean.onCancel}" update=":form1:messages" /> 
+                    <p:column filterBy="#{msg.messageId}">
+                        <f:facet name="header">  
+                            <h:outputText value="Message ID" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{msg.messageId}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{msg.messageId}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor> 
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Message" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{msg.message}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{msg.message}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Product Name" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{msg.productId.productName}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{msg.productId.productName}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>                             
+
+                    <p:column headerText="Options" style="width:50px">  
+                        <p:rowEditor />  
+                    </p:column> 
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">Transactions</ui:define>                  
+    
+    <ui:define name="content"> 
+        <h:form>
+        <p:dataTable var="tranx" value="#{transactionMBean.tranx}" rows="10" 
+                     filteredValue="#{transactionMBean.filteredTranx}" paginator="true"
+                     rowKey="#{tranx.transactionId}" >
+            <f:facet name="header">  
+                Summary Count:<h:outputText value="#{transactionMBean.tranx.size()}" />
+            </f:facet>
+            
+            <p:column headerText="Sent Date">
+                <h:outputText value="#{tranx.transDate}" />
+            </p:column>
+            
+            
+            <p:column headerText="Mobile No"  filterBy="#{tranx.mobileNo}">
+                <h:outputText value="#{tranx.mobileNo}" />
+            </p:column>                          
+                        
+            <p:column headerText="Message">
+                <h:outputText value="#{transactionMBean.getMsg(tranx.messageId)}" />
+            </p:column>
+            
+            <p:column headerText="Trans Status">
+                <h:outputText value="Sent" />
+            </p:column>
+        </p:dataTable>
+            </h:form>
+    </ui:define>
+</ui:composition>
+

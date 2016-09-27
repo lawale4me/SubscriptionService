@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">Product Page</ui:define>                  
+    
+    <ui:define name="content">    
+        <h:form id="form1">
+            <p:growl id="messages" showDetail="true"/>
+            <p:panel header="Product" style="width: 1000px;"> 
+                <p:panelGrid columns="2">
+                    <h:outputLabel for="productName" value="Product Name: " />
+                    <p:inputText  value="#{productMBean.productName}" required="true"/>
+                    <h:outputLabel for="keyword" value="Keyword " />
+                    <p:inputText value="#{productMBean.keyword}" required="true"/>
+                    <h:outputLabel for="noOfSubscription" value="No Of Subscription " />
+                    <p:inputText  value="#{productMBean.noOfSubscription}" required="true"/>
+                    <h:outputLabel for="productDescription" value="productDescription " />
+                    <p:inputText  value="#{productMBean.productDescription}" required="true"/>
+                    <h:outputLabel for="expiredResponse" value="expiredResponse " />
+                    <p:inputText  value="#{productMBean.expiredResponse}" required="true"/>
+                    <h:outputLabel for="startResponse" value="startResponse " />
+                    <p:inputText  value="#{productMBean.startResponse}" required="true"/>
+                    <f:facet name="footer">
+                        <h:commandButton value="Add Product" action="#{productMBean.addAction}"/>
+                    </f:facet>
+                </p:panelGrid>
+                <p:spacer height="30px;"/>
+                <p:dataTable value="#{productMBean.productList}" var="product" 
+                        widgetVar="50" style="width: 1000px;" editable="true"
+                        rowKey="#{product.productId}" rows="10" paginator="true" >
+                    <f:facet name="header">                                                  
+                        Summary Count:<h:outputText value="#{productMBean.productList.size()}" />            
+                    </f:facet>
+                    <p:ajax event="rowEdit" listener="#{productMBean.onEdit}" update=":form1:messages" />  
+                    <p:ajax event="rowEditCancel" listener="#{productMBean.onCancel}" update=":form1:messages" /> 
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Product Name" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{product.productName}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{product.productName}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor> 
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Keyword" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{product.keyword}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{product.keyword}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Description" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{product.productDescription}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{product.productDescription}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>               
+
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Start Response" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{product.startResponse}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{product.startResponse}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="ExpiredResponse" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{product.expiredResponse}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{product.expiredResponse}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="No Of Alerts" />  
+                        </f:facet>
+                        <p:cellEditor>  
+                            <f:facet name="output">  
+                                <h:outputText value="#{product.noOfSubscription}" />  
+                            </f:facet>  
+                            <f:facet name="input">  
+                                <p:inputText value="#{product.noOfSubscription}" style="width:100%"/>  
+                            </f:facet>  
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Options" style="width:50px">  
+                        <p:rowEditor />  
+                    </p:column> 
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+        </ui:define>
+</ui:composition>
+

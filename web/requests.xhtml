@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">Requests</ui:define>                  
+    
+    <ui:define name="content">    
+        <h:form>
+        <p:dataTable var="req" value="#{requestMBean.reqs}" widgetVar="requestTable"
+                     filteredValue="#{requestMBean.filteredReqs}"
+                     rowKey="#{req.requestID}" rows="10"
+                    scrollable="true" paginator="true" >
+            
+            <f:facet name="header">                                                  
+                        Summary Count:<h:outputText value="#{requestMBean.reqs.size()}" />            
+                    </f:facet>
+
+            <p:column headerText="Request Date" filterBy="#{req.dateInserted}">
+                <h:outputText value="#{req.dateInserted}" />
+            </p:column>
+
+            <p:column headerText="SourceAddress" filterBy="#{req.sourceAddress}">
+                <h:outputText value="#{req.sourceAddress}" />
+            </p:column>
+
+            <p:column headerText="DestAddress">
+                <h:outputText value="#{req.destAddress}" />
+            </p:column>   
+
+            <p:column headerText="Message">
+                <h:outputText value="#{req.messageContent}" />
+            </p:column>                        
+        </p:dataTable>
+            </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <ui:define name="title">Scheduled Transactions</ui:define>                  
+    
+    <ui:define name="content">    
+    
+        <h:form>
+        
+        <p:dataTable var="tranx" value="#{transactionMBean.pendingTranx}"  filteredValue="#{transactionMBean.filteredTranx}" rows="10" paginator="true" rowKey="#{tranx.transactionId}">
+            <f:facet name="header">  
+                Summary Count:<h:outputText value="#{transactionMBean.pendingTranx.size()}" />
+            </f:facet>
+            <p:column headerText="Message Id">
+                <h:outputText value="#{tranx.messageId}" />
+            </p:column>
+
+            <p:column headerText="Mobile No" filterBy="#{tranx.mobileNo}">
+                <h:outputText value="#{tranx.mobileNo}" />
+            </p:column>   
+            
+            <p:column headerText="Send Date" filterBy="#{tranx.sendDate}">
+                <h:outputText value="#{tranx.sendDate}" />
+            </p:column>
+            
+            <p:column headerText="Message">
+                <h:outputText value="#{transactionMBean.getMsg(tranx.messageId)}" />
+            </p:column>
+            
+            <p:column headerText="Trans Status">
+                <h:outputText value="#{tranx.status}" />
+            </p:column>
+            
+            
+            
+        </p:dataTable>
+            </h:form>
+    </ui:define>
+</ui:composition>
+    

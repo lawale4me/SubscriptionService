@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    
+    <f:view contentType="text/html">
+        <h:head>            
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>                
+                <link href="#{request.contextPath}/resource/css/styles.css" rel="stylesheet" type="text/css" />    
+                <title><ui:insert name="title">SMS SOLUTIONS MANAGEMENT PORTAL</ui:insert></title>    
+            </f:facet>        
+        </h:head>
+        <h:body> 
+            <p:layout fullPage="true" >
+                <p:layoutUnit position="north"  collapsible="true"
+                              gutter="0" resizable="true"  size="85" closable="true">   
+                    <center> <font color="#FF6600">SMS SOLUTIONS MANAGEMENT PORTAL </font> </center>
+            </p:layoutUnit>                
+                <p:layoutUnit gutter="0"  position="west" size="150" collapsible="true" style="background: #FF6600 !important;" >
+                    <p:menu style="background: #FF6600 !important;">                        
+                        <p:submenu  label="ADMIN" >
+                                <p:menuitem value="Products" url="/faces/productpage.xhtml"/>                                                                                 
+                                <p:menuitem value="Requests" url="/faces/requests.xhtml"/>   
+                                <p:menuitem value="Scheduled" url="/faces/scheduled.xhtml"/>   
+                                <p:menuitem value="Transaction" url="/faces/transactions.xhtml"/>                                   
+                                <p:menuitem value="Messages" url="/faces/messagepage.xhtml"/>
+                                <p:menuitem value="Upload Messages" url="/faces/bulkmessage.xhtml"/>
+                        </p:submenu>                        
+                    </p:menu>              
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="center"  gutter="0" size="1200">                    
+                    <ui:insert name="content"></ui:insert>
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="south" size="50" closable="true" collapsible="true" gutter="0" style="background: #FF6600 !important;">
+                    <center><B>Kay Technologies</B></center>                    
+                </p:layoutUnit>
+                
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
+
+
